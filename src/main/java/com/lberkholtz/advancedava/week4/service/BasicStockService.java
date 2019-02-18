@@ -51,7 +51,7 @@ private StockQuote stockquote;
      * @param symbol the stock symbol to search for
      * @param from the date of the first stock quote
      * @param until the date of the last stock quote
-     * @return a list of stock values for the interval specified
+     * @return a list of stock values one each day, for the interval specified
      */
     @Override
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until) {
@@ -76,6 +76,7 @@ private StockQuote stockquote;
     }
 
     /**
+     * This gets a list of stock quotes for the specified length of time and interval
      * TODO Note to self - split out duplicate code when feeling clever
      * TODO Tried switch statement with enum and could not get it to work
      * @param symbol the stock symbol to search for
@@ -84,7 +85,7 @@ private StockQuote stockquote;
      * @param interval ­ the number of StockQuotes to get. E.g. if Interval.DAILY was
      * specified
      * one StockQuote per day will be returned.
-     * @return
+     * @return List of Stock Quotes
      */
     @Override
     public List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, Interval interval){
@@ -114,7 +115,7 @@ private StockQuote stockquote;
             } else if (interval == Interval.MONTHLY){
                 workingdate.add(Calendar.MONTH, 1);
             }
-            else
+            else // should never need but just in care
                 workingdate = until;
 
         }
