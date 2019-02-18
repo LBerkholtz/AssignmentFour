@@ -13,7 +13,10 @@ import java.util.Date;
  * Container class stockquote
  *
  */
+
 @Immutable
+
+
 
 
 public class StockQuote {
@@ -21,11 +24,21 @@ public class StockQuote {
     private Date date; //the date of the quote
     private BigDecimal stockPrice;  //the price of the stock
 
+
     /**
-     * no arg constructor
+     * Returns an empty instance of stock quote
      */
 
     public StockQuote() {
+    }
+
+    /**
+     * Returns a stock quote if only a symbol is sent
+     * @param stocksymbol
+     */
+
+    public StockQuote(String stocksymbol) {
+        this.stockSymbol = stocksymbol;
     }
 
     /**
@@ -46,6 +59,7 @@ public class StockQuote {
      * @return stocksymbol
      */
     public String getStockSymbol() {
+
         return stockSymbol;
     }
 

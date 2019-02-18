@@ -24,8 +24,7 @@ public class StockServiceFactoryTest{
      */
     @Test
     public void testGetStockService() {
-        assertTrue(stockservicefactory.getStockService("Fancy") == null);
-        assertThat(stockservicefactory.getStockService("Basic"), instanceOf(BasicStockService.class));
+        assertThat(stockservicefactory.getStockService(), instanceOf(BasicStockService.class));
     }
 }
 

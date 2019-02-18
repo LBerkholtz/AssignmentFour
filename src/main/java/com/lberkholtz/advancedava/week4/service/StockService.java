@@ -1,6 +1,7 @@
 // Written by Laura Berkholtz
 package com.lberkholtz.advancedava.week4.service;
 
+import com.lberkholtz.advancedava.week4.enums.Interval;
 import com.lberkholtz.advancedava.week4.model.StockQuote;
 import java.util.Calendar;
 import java.util.List;
@@ -37,7 +38,7 @@ public interface StockService {
      * @param interval ­ the number of StockQuotes to get. E.g. if Interval.DAILY was
      * specified
      * one StockQuote per day will be returned.
-     * @return a list of StockQuote instances. One for each day in the range specified.
+     * @return a list of StockQuote instances. One for each interval in the range specified.
      */
     List<StockQuote> getQuote(String symbol, Calendar from, Calendar until, Interval interval);
 }

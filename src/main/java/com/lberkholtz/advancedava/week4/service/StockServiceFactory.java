@@ -4,6 +4,8 @@
 
 package com.lberkholtz.advancedava.week4.service;
 
+import com.lberkholtz.advancedava.week4.model.StockQuote;
+
 /**
  * Returns a concrete implementation of the
  * interface depending on the parameter passed
@@ -11,16 +13,10 @@ package com.lberkholtz.advancedava.week4.service;
 public class StockServiceFactory{
     /**
      * Just coding for BasicStockService now, can add more types of StockService in the future.
-     * @param stockServiceType what type of stock service is needed. For now we just have Basic
      * @return
      */
 
-    public StockService getStockService(String stockServiceType) {
-
-        if (stockServiceType.equalsIgnoreCase("basic"))
+    public static StockService getStockService() {
             return new BasicStockService();
-        else
-            return null;
-
     }
 }

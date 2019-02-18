@@ -5,6 +5,7 @@
 
 package com.lberkholtz.advancedava.week4.main;
 
+import com.lberkholtz.advancedava.week4.enums.Interval;
 import com.lberkholtz.advancedava.week4.model.StockQuote;
 import com.lberkholtz.advancedava.week4.service.StockService;
 import com.lberkholtz.advancedava.week4.service.StockServiceFactory;
@@ -34,17 +35,18 @@ public class StockQuoteApplication {
 
     public static void main(String[] args) throws ParseException {
 
-        StockService stockservice = new StockServiceFactory().getStockService("basic");
+        StockService stockservice = StockServiceFactory.getStockService();
 
     /**
     * Check args length and if there is only one, pass only the symbol to the getQuote method
      * Otherwise send all args to stock quote and get a list of quotes
     */
         if (args.length == 1) {
+
             StockQuote singlestockquote = stockservice.getQuote(args[0]);
             System.out.println(singlestockquote.toString());
 
-        } else if (args.length != 0) {
+        } else if (args.length == 3 || args.length == 4) {
 
             String fromDate = args[1];
             String untilDate = args[2];
@@ -61,17 +63,46 @@ public class StockQuoteApplication {
                 endDate.setTime(enddateformat.parse(untilDate));
 
                 } catch (ParseException e) {
+                String message = "Invalid dates. Program is terminating";
+                System.out.println(message);
 
-                System.out.println("Invalid dates. Program is terminating");
-                System.exit(-1);
 
             }
 
-            List<StockQuote> stockquotelist = stockservice.getQuote(args[0], startDate, endDate);
+            if (args.length == 3) {
 
-            for (StockQuote tempstockquote : stockquotelist) {
-                System.out.println(tempstockquote.toString());
+                List<StockQuote> stockquotelist = stockservice.getQuote(args[0], startDate, endDate);
+
+                for (StockQuote tempstockquote : stockquotelist) {
+                    System.out.println(tempstockquote.toString());
+                }
+            } else {
+                Interval interval;
+                switch (args[3]){
+
+                    case "HOURLY":
+                        interval = Interval.HOURLY;
+                    case "DAILY":
+                        interval = Interval.DAILY;
+                    case "WEEKLY":
+                        interval = Interval.WEEKLY;
+                    case "MONTHLY":
+                        interval = Interval.MONTHLY;
+                    default:
+                        interval = Interval.DAILY;
+                }
+                List<StockQuote> stockquotelist = stockservice.getQuote(args[0], startDate, endDate, interval);
+
+                for (StockQuote tempstockquote : stockquotelist) {
+                    System.out.println(tempstockquote.toString());
+                }
             }
+
+
+        } else {
+            String message = "Invalid number of arguments passed to application";
+            System.out.println(message);
+            System.exit(-1);
         }
         }
     }
